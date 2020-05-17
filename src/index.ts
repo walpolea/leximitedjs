@@ -1,4 +1,4 @@
-import { toLeximited, fromLeximited } from "./leximited";
+import { toLeximited, fromLeximited } from "./lib/leximited";
 
 export default {
   toLeximited,
