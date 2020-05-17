@@ -2,10 +2,9 @@
 
 Library for converting numbers or strings to and from Leximited Notation
 
-# npm run build | tsc
+### npm run build
 
-# src/ - has typescript module
+### npm run test
 
-# dist/ - has es5 module
-
-# test/ - will have tests and examples you can run with node
+- src/ - has typescript module and tests
+- dist/ - has es5 module
