@@ -8,4 +8,4 @@ Library for converting numbers or strings to and from Leximited Notation
 
 # dist/ - has es5 module
 
-# test/ - will have tests and has a fiel for running index.ts via deno
+# test/ - will have tests and examples you can run with node
