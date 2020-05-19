@@ -55,20 +55,32 @@ const fromLeximited = (n: number | string, asString: boolean = false): number | 
   }
 
   const numStr: string = String(n);
-  const len = numStr.length;
+  const possibleLength: number = Number(numStr[0]);
 
   //is a smallish lex?
-  if (Number(numStr[0]) < 9) {
+  if (possibleLength < 9) {
+    const actualNumberAsString: string = numStr.slice(1);
+
     //check if proper smallish lex
-    if (Number(numStr[0]) === numStr.slice(1).length) {
-      return asString ? numStr.slice(1) : Number(numStr.slice(1));
+    if (possibleLength === actualNumberAsString.length) {
+      //the actual length equals the prepended length, so it is
+      return asString ? actualNumberAsString : Number(actualNumberAsString);
     } else {
       throw new SyntaxError(`Syntax Error: ${n} is not a properly leximited ${typeof n}`);
     }
-  } else if (Number(numStr[0]) === 9) {
+  } else if (possibleLength === 9) {
     //deal with a big one
+    const secondNumber = Number(numStr[1]);
+    const lexLength: number = Number(numStr.slice(1, 2 + secondNumber));
+    const actualNumberAsString: string = numStr.slice(2 + secondNumber);
 
-    return "something for now";
+    //check if proper smallish lex
+    if (fromLeximited(lexLength) === actualNumberAsString.length) {
+      //the actual length equals the prepended length, so it is
+      return asString ? actualNumberAsString : Number(actualNumberAsString);
+    } else {
+      throw new SyntaxError(`Syntax Error: ${n} is not a properly leximited ${typeof n}`);
+    }
   } else {
     //what is this? negative number maybe?
     throw new SyntaxError(`Syntax Error: ${n} is not a properly leximited ${typeof n}`);

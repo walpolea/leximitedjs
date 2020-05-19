@@ -1,17 +1,23 @@
-import { toLeximitedInt, toLeximitedStr } from "../lib/leximited";
+import { toLeximitedInt, toLeximitedStr, fromLeximitedInt, fromLeximitedStr } from "../lib/leximited";
 
-function runTests(cases: any[]) {
-  const results = cases.map((test) => {
+function runTests(toCases: any[], fromCases: any[]) {
+  const resultsTo = toCases.map((test) => {
     return { ...test, ...testToLeximited(test) };
   });
 
-  console.table(results);
+  console.table(resultsTo);
+
+  const resultsFrom = fromCases.map((test) => {
+    return { ...test, ...testFromLeximited(test) };
+  });
+
+  console.table(resultsFrom);
 }
 
 function testToLeximited({ input, expectedOutputAsNumber, expectedOutputAsString }): any {
   let asNumber: boolean = true;
   let asString: boolean = true;
-  let numResult, strResult;
+  let numResult: number, strResult: string;
 
   if (expectedOutputAsNumber != null) {
     try {
@@ -19,6 +25,7 @@ function testToLeximited({ input, expectedOutputAsNumber, expectedOutputAsString
       asNumber = numResult === expectedOutputAsNumber;
     } catch (error) {
       console.log(error);
+      numResult = -1;
       asNumber = false;
     }
   }
@@ -29,6 +36,7 @@ function testToLeximited({ input, expectedOutputAsNumber, expectedOutputAsString
       asString = strResult === expectedOutputAsString;
     } catch (error) {
       console.log(error);
+      strResult = "ERROR";
       asString = false;
     }
   }
@@ -40,7 +48,41 @@ function testToLeximited({ input, expectedOutputAsNumber, expectedOutputAsString
   };
 }
 
-const testCases = [
+function testFromLeximited({ input, expectedOutputAsNumber, expectedOutputAsString }): any {
+  let asNumber: boolean = true;
+  let asString: boolean = true;
+  let numResult: number, strResult: string;
+
+  if (expectedOutputAsNumber != null) {
+    try {
+      numResult = fromLeximitedInt(input);
+      asNumber = numResult === expectedOutputAsNumber;
+    } catch (error) {
+      console.log(error);
+      numResult = -1;
+      asNumber = false;
+    }
+  }
+
+  if (expectedOutputAsString != null) {
+    try {
+      strResult = fromLeximitedStr(input);
+      asString = strResult === expectedOutputAsString;
+    } catch (error) {
+      console.log(error);
+      strResult = "ERROR";
+      asString = false;
+    }
+  }
+
+  return {
+    passed: asNumber && asString,
+    outputAsNumber: numResult,
+    outputAsString: strResult,
+  };
+}
+
+const testToCases: any[] = [
   {
     input: 0,
     expectedOutputAsNumber: 10,
@@ -87,7 +129,39 @@ const testCases = [
   },
 ];
 
-runTests(testCases);
+const testFromCases: any[] = [
+  {
+    input: "210",
+    expectedOutputAsNumber: 10,
+    expectedOutputAsString: "10",
+  },
+  {
+    input: 899999999,
+    expectedOutputAsNumber: 99999999,
+    expectedOutputAsString: "99999999",
+  },
+  {
+    input: "919100000000",
+    expectedOutputAsNumber: 100000000,
+    expectedOutputAsString: "100000000",
+  },
+  {
+    input: 919100000000,
+    expectedOutputAsNumber: 100000000,
+    expectedOutputAsString: "100000000",
+  },
+  {
+    input: "10",
+    expectedOutputAsNumber: 0,
+    expectedOutputAsString: "0",
+  },
+  {
+    input: "9222mary had a little lamb",
+    expectedOutputAsString: "mary had a little lamb",
+  },
+];
+
+runTests(testToCases, testFromCases);
 
 921500000000000000;
 921499999999999999;

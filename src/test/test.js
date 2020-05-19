@@ -12,11 +12,15 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var leximited_1 = require("../lib/leximited");
-function runTests(cases) {
-    var results = cases.map(function (test) {
+function runTests(toCases, fromCases) {
+    var resultsTo = toCases.map(function (test) {
         return __assign(__assign({}, test), testToLeximited(test));
     });
-    console.table(results);
+    console.table(resultsTo);
+    var resultsFrom = fromCases.map(function (test) {
+        return __assign(__assign({}, test), testFromLeximited(test));
+    });
+    console.table(resultsFrom);
 }
 function testToLeximited(_a) {
     var input = _a.input, expectedOutputAsNumber = _a.expectedOutputAsNumber, expectedOutputAsString = _a.expectedOutputAsString;
@@ -30,6 +34,7 @@ function testToLeximited(_a) {
         }
         catch (error) {
             console.log(error);
+            numResult = -1;
             asNumber = false;
         }
     }
@@ -40,6 +45,7 @@ function testToLeximited(_a) {
         }
         catch (error) {
             console.log(error);
+            strResult = "ERROR";
             asString = false;
         }
     }
@@ -49,7 +55,40 @@ function testToLeximited(_a) {
         outputAsString: strResult
     };
 }
-var testCases = [
+function testFromLeximited(_a) {
+    var input = _a.input, expectedOutputAsNumber = _a.expectedOutputAsNumber, expectedOutputAsString = _a.expectedOutputAsString;
+    var asNumber = true;
+    var asString = true;
+    var numResult, strResult;
+    if (expectedOutputAsNumber != null) {
+        try {
+            numResult = leximited_1.fromLeximitedInt(input);
+            asNumber = numResult === expectedOutputAsNumber;
+        }
+        catch (error) {
+            console.log(error);
+            numResult = -1;
+            asNumber = false;
+        }
+    }
+    if (expectedOutputAsString != null) {
+        try {
+            strResult = leximited_1.fromLeximitedStr(input);
+            asString = strResult === expectedOutputAsString;
+        }
+        catch (error) {
+            console.log(error);
+            strResult = "ERROR";
+            asString = false;
+        }
+    }
+    return {
+        passed: asNumber && asString,
+        outputAsNumber: numResult,
+        outputAsString: strResult
+    };
+}
+var testToCases = [
     {
         input: 0,
         expectedOutputAsNumber: 10,
@@ -95,6 +134,37 @@ var testCases = [
         expectedOutputAsString: "9222mary had a little lamb"
     },
 ];
-runTests(testCases);
+var testFromCases = [
+    {
+        input: "210",
+        expectedOutputAsNumber: 10,
+        expectedOutputAsString: "10"
+    },
+    {
+        input: 899999999,
+        expectedOutputAsNumber: 99999999,
+        expectedOutputAsString: "99999999"
+    },
+    {
+        input: "919100000000",
+        expectedOutputAsNumber: 100000000,
+        expectedOutputAsString: "100000000"
+    },
+    {
+        input: 919100000000,
+        expectedOutputAsNumber: 100000000,
+        expectedOutputAsString: "100000000"
+    },
+    {
+        input: "10",
+        expectedOutputAsNumber: 0,
+        expectedOutputAsString: "0"
+    },
+    {
+        input: "9222mary had a little lamb",
+        expectedOutputAsString: "mary had a little lamb"
+    },
+];
+runTests(testToCases, testFromCases);
 921500000000000000;
 921499999999999999;

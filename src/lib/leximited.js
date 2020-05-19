@@ -55,20 +55,32 @@ var fromLeximited = function (n, asString) {
         }
     }
     var numStr = String(n);
-    var len = numStr.length;
+    var possibleLength = Number(numStr[0]);
     //is a smallish lex?
-    if (Number(numStr[0]) < 9) {
+    if (possibleLength < 9) {
+        var actualNumberAsString = numStr.slice(1);
         //check if proper smallish lex
-        if (Number(numStr[0]) === numStr.slice(1).length) {
-            return asString ? numStr.slice(1) : Number(numStr.slice(1));
+        if (possibleLength === actualNumberAsString.length) {
+            //the actual length equals the prepended length, so it is
+            return asString ? actualNumberAsString : Number(actualNumberAsString);
         }
         else {
             throw new SyntaxError("Syntax Error: " + n + " is not a properly leximited " + typeof n);
         }
     }
-    else if (Number(numStr[0]) === 9) {
+    else if (possibleLength === 9) {
         //deal with a big one
-        return "something for now";
+        var secondNumber = Number(numStr[1]);
+        var lexLength = Number(numStr.slice(1, 2 + secondNumber));
+        var actualNumberAsString = numStr.slice(2 + secondNumber);
+        //check if proper smallish lex
+        if (fromLeximited(lexLength) === actualNumberAsString.length) {
+            //the actual length equals the prepended length, so it is
+            return asString ? actualNumberAsString : Number(actualNumberAsString);
+        }
+        else {
+            throw new SyntaxError("Syntax Error: " + n + " is not a properly leximited " + typeof n);
+        }
     }
     else {
         //what is this? negative number maybe?
