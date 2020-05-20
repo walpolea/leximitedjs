@@ -1,6 +1,2 @@
-import { toLeximited, fromLeximited } from "./lib/leximited";
-
-export default {
-  toLeximited,
-  fromLeximited,
-};
+import { toLeximited, toLeximitedInt, toLeximitedStr, fromLeximited, fromLeximitedInt, fromLeximitedStr } from "./lib/leximited";
+export { toLeximited, toLeximitedInt, toLeximitedStr, fromLeximited, fromLeximitedInt, fromLeximitedStr };

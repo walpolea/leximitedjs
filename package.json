@@ -1,11 +1,16 @@
 {
   "name": "leximitedjs",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Convert strings/numbers to and from Leximited Notation",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "unpkg": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "tsc src/test/test.ts && node src/test/test.js",
-    "build": "tsc"
+    "test": "tsc ./test/test.ts && node ./test/test.js",
+    "build": "tsc",
+    "prepublish": "tsc"
   },
   "repository": {
     "type": "git",
@@ -17,7 +22,7 @@
     "lexicographical"
   ],
   "author": "Andrew Walpole",
-  "license": "ISC",
+  "license": "GNU General Public License",
   "bugs": {
     "url": "https://github.com/walpolea/leximitedjs/issues"
   },

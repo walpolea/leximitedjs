@@ -1,4 +1,4 @@
-import { toLeximitedInt, toLeximitedStr, fromLeximitedInt, fromLeximitedStr } from "../lib/leximited";
+import { toLeximitedInt, toLeximitedStr, fromLeximitedInt, fromLeximitedStr } from "../src/lib/leximited";
 
 function runTests(toCases: any[], fromCases: any[]) {
   const resultsTo = toCases.map((test) => {

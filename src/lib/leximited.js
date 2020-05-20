@@ -1,8 +1,13 @@
 "use strict";
-// const numericals: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 exports.__esModule = true;
 exports.fromLeximitedStr = exports.fromLeximitedInt = exports.fromLeximited = exports.toLeximitedStr = exports.toLeximitedInt = exports.toLeximited = void 0;
-var toLeximited = function (n, asString) {
+////////////////////////////////////////////////////////////////////
+//leximitedjs
+//author: Andrew Walpole
+//GNU GENERAL PUBLIC LICENSE
+////////////////////////////////////////////////////////////////////
+//encode a regular string/number to a leximited string/number
+exports.toLeximited = function (n, asString) {
     if (asString === void 0) { asString = false; }
     //string?
     if (isNaN(+n)) {
@@ -11,7 +16,7 @@ var toLeximited = function (n, asString) {
             return "" + str.length + n;
         }
         else {
-            return "9" + toLeximited(str.length) + str;
+            return "9" + exports.toLeximited(str.length) + str;
         }
     }
     //if it's a number as a string, get rid of leading zeros
@@ -31,19 +36,21 @@ var toLeximited = function (n, asString) {
         return asString ? "" + len + num : Number("" + len + num);
     }
     //larger number
-    return asString ? "9" + toLeximited(len) + num : Number("9" + toLeximited(len) + num);
+    return asString ? "9" + exports.toLeximited(len) + num : Number("9" + exports.toLeximited(len) + num);
 };
-exports.toLeximited = toLeximited;
-var toLeximitedInt = function (n) {
-    return Number(toLeximited(n));
+////////////////////////////////////////////////////////////////////
+//specifically encode a string/number to a leximited number
+exports.toLeximitedInt = function (n) {
+    return Number(exports.toLeximited(n));
 };
-exports.toLeximitedInt = toLeximitedInt;
-var toLeximitedStr = function (n) {
-    return String(toLeximited(n, true));
+////////////////////////////////////////////////////////////////////
+//specifically encode a string/number to a leximited string
+exports.toLeximitedStr = function (n) {
+    return String(exports.toLeximited(n, true));
 };
-exports.toLeximitedStr = toLeximitedStr;
-//TODO: make it work right
-var fromLeximited = function (n, asString) {
+////////////////////////////////////////////////////////////////////
+//decode a leximited string/number to a regular string/number
+exports.fromLeximited = function (n, asString) {
     if (asString === void 0) { asString = false; }
     //string?
     if (isNaN(+n)) {
@@ -74,7 +81,7 @@ var fromLeximited = function (n, asString) {
         var lexLength = Number(numStr.slice(1, 2 + secondNumber));
         var actualNumberAsString = numStr.slice(2 + secondNumber);
         //check if proper smallish lex
-        if (fromLeximited(lexLength) === actualNumberAsString.length) {
+        if (exports.fromLeximited(lexLength) === actualNumberAsString.length) {
             //the actual length equals the prepended length, so it is
             return asString ? actualNumberAsString : Number(actualNumberAsString);
         }
@@ -87,12 +94,13 @@ var fromLeximited = function (n, asString) {
         throw new SyntaxError("Syntax Error: " + n + " is not a properly leximited " + typeof n);
     }
 };
-exports.fromLeximited = fromLeximited;
-var fromLeximitedInt = function (n) {
-    return Number(fromLeximited(n));
+////////////////////////////////////////////////////////////////////
+//specifically decode a leximited string/number to a number
+exports.fromLeximitedInt = function (n) {
+    return Number(exports.fromLeximited(n));
 };
-exports.fromLeximitedInt = fromLeximitedInt;
-var fromLeximitedStr = function (n) {
-    return String(fromLeximited(n, true));
+////////////////////////////////////////////////////////////////////
+//specifically decode a leximited string/number to a string
+exports.fromLeximitedStr = function (n) {
+    return String(exports.fromLeximited(n, true));
 };
-exports.fromLeximitedStr = fromLeximitedStr;

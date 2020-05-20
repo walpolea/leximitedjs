@@ -11,7 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var leximited_1 = require("../lib/leximited");
+var leximited_1 = require("../src/lib/leximited");
 function runTests(toCases, fromCases) {
     var resultsTo = toCases.map(function (test) {
         return __assign(__assign({}, test), testToLeximited(test));

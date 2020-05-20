@@ -1,5 +1,9 @@
-// const numericals: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
+////////////////////////////////////////////////////////////////////
+//leximitedjs
+//author: Andrew Walpole
+//GNU GENERAL PUBLIC LICENSE
+////////////////////////////////////////////////////////////////////
+//encode a regular string/number to a leximited string/number
 const toLeximited = (n: number | string, asString: boolean = false): number | string => {
   //string?
   if (isNaN(+n)) {
@@ -35,15 +39,20 @@ const toLeximited = (n: number | string, asString: boolean = false): number | st
   return asString ? `9${toLeximited(len)}${num}` : Number(`9${toLeximited(len)}${num}`);
 };
 
+////////////////////////////////////////////////////////////////////
+//specifically encode a string/number to a leximited number
 const toLeximitedInt = (n: string | number): number => {
   return Number(toLeximited(n));
 };
 
+////////////////////////////////////////////////////////////////////
+//specifically encode a string/number to a leximited string
 const toLeximitedStr = (n: string | number): string => {
   return String(toLeximited(n, true));
 };
 
-//TODO: make it work right
+////////////////////////////////////////////////////////////////////
+//decode a leximited string/number to a regular string/number
 const fromLeximited = (n: number | string, asString: boolean = false): number | string => {
   //string?
   if (isNaN(+n)) {
@@ -87,10 +96,14 @@ const fromLeximited = (n: number | string, asString: boolean = false): number | 
   }
 };
 
+////////////////////////////////////////////////////////////////////
+//specifically decode a leximited string/number to a number
 const fromLeximitedInt = (n: string | number): number => {
   return Number(fromLeximited(n));
 };
 
+////////////////////////////////////////////////////////////////////
+//specifically decode a leximited string/number to a string
 const fromLeximitedStr = (n: string | number): string => {
   return String(fromLeximited(n, true));
 };
