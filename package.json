@@ -1,6 +1,6 @@
 {
   "name": "leximitedjs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Convert strings/numbers to and from Leximited Notation",
   "main": "dist/index.js",
   "unpkg": "dist/index.js",
@@ -28,6 +28,16 @@
   },
   "homepage": "https://github.com/walpolea/leximitedjs#readme",
   "devDependencies": {
-    "typescript": "^3.9.2"
-  }
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@skypack/package-check": "^0.2.2"
+  },
+  "exports": {
+    "default": "./dist/index.js",
+    "import": "./dist/index.js",
+    "node": "./dist/index.js",
+    "require": "./dist/index.js"
+  },
+  "types": "./index.d.ts"
 }
