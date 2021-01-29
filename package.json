@@ -1,6 +1,6 @@
 {
   "name": "leximitedjs",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Convert strings/numbers to and from Leximited Notation",
   "main": "dist/index.js",
   "unpkg": "dist/index.js",
